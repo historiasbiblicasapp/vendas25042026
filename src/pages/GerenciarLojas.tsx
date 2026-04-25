@@ -11,7 +11,6 @@ interface Loja {
   bloqueado: boolean;
   dispositivos_permitidos: number;
   cor_app: string;
-  telefone?: string;
 }
 
 const cores = [
@@ -31,7 +30,6 @@ export default function GerenciarLojas() {
     nome_loja: '',
     email: '',
     password: '',
-    telefone: '',
     dispositivos_permitidos: 1,
     cor_app: '#22c55e'
   });
@@ -61,7 +59,6 @@ export default function GerenciarLojas() {
         .update({
           nome: form.nome,
           nome_loja: form.nome_loja,
-          telefone: form.telefone,
           dispositivos_permitidos: form.dispositivos_permitidos,
           cor_app: form.cor_app
         })
@@ -86,7 +83,6 @@ export default function GerenciarLojas() {
           nome_loja: form.nome_loja,
           email: form.email,
           password: form.password,
-          telefone: form.telefone,
           tipo: 'dono',
           dispositivos_permitidos: form.dispositivos_permitidos,
           cor_app: form.cor_app,
@@ -124,7 +120,6 @@ export default function GerenciarLojas() {
       nome: loja.nome,
       nome_loja: loja.nome_loja || loja.nome,
       email: loja.email,
-      telefone: loja.telefone || '',
       password: '',
       dispositivos_permitidos: loja.dispositivos_permitidos,
       cor_app: loja.cor_app || '#22c55e'
@@ -145,7 +140,7 @@ export default function GerenciarLojas() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 600, margin: 0 }}>Gerenciar Lojas</h2>
         <button
-          onClick={() => { setEditLoja(null); setForm({ nome: '', nome_loja: '', email: '', password: '', telefone: '', dispositivos_permitidos: 1, cor_app: '#22c55e' }); setShowModal(true); }}
+          onClick={() => { setEditLoja(null); setForm({ nome: '', nome_loja: '', email: '', password: '', dispositivos_permitidos: 1, cor_app: '#22c55e' }); setShowModal(true); }}
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', background: '#22c55e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           <Plus size={18} /> Nova Loja
@@ -255,16 +250,6 @@ export default function GerenciarLojas() {
                   />
                 </div>
               )}
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Telefone (com DDD)</label>
-                <input
-                  type="text"
-                  value={form.telefone}
-                  onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-                  placeholder="Ex: 11999999999"
-                  style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px' }}
-                />
-              </div>
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
                   <Smartphone size={16} style={{ marginRight: '0.25rem' }} /> Dispositivos Permitidos
