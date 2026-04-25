@@ -67,13 +67,18 @@ export default function GerenciarLojas() {
         })
         .eq('id', editLoja.id);
       if (error) {
-        setMessage('Erro ao atualizar');
+        setMessage('Erro ao atualizar: ' + error.message);
       } else {
         setMessage('Loja atualizada!');
         fetchLojas();
         setShowModal(false);
       }
     } else {
+      if (!form.password) {
+        setMessage('Senha é obrigatória para criar nova loja');
+        setLoading(false);
+        return;
+      }
       const { error } = await supabase
         .from('usuarios')
         .insert({
@@ -245,18 +250,18 @@ export default function GerenciarLojas() {
                     type="password"
                     value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    required
+                    placeholder={editLoja ? "Deixe em branco para manter" : "Digite uma senha"}
                     style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px' }}
                   />
                 </div>
               )}
               <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Telefone</label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Telefone (com DDD)</label>
                 <input
-                  type="tel"
+                  type="text"
                   value={form.telefone}
                   onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-                  placeholder="(00) 00000-0000"
+                  placeholder="Ex: 11999999999"
                   style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
               </div>
