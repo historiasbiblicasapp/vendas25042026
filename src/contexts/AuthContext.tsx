@@ -6,10 +6,13 @@ interface UserProfile {
   id: string;
   email: string;
   nome: string;
-  tipo: 'dono' | 'master';
+  tipo: 'dono' | 'master' | 'funcionario';
   bloqueado: boolean;
   dispositivos_permitidos: number;
   cor_app: string;
+  dispositivos_ativos?: number;
+  ultima_sessao?: string;
+  loja_id?: string;
 }
 
 interface AuthContextType {

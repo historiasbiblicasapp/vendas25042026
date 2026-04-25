@@ -4,7 +4,7 @@ import { useDashboard } from '../hooks/useDashboard';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, ShoppingCart, Users, Package, 
-  FileText, Share2, Settings, LogOut, Menu, X
+  FileText, Share2, Settings, LogOut, Menu, X, Store
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -25,6 +25,7 @@ export default function Layout({ children }: LayoutProps) {
     { path: '/produtos', icon: Package, label: 'Produtos/Serviços' },
     { path: '/relatorios', icon: FileText, label: 'Relatórios' },
     { path: '/compartilhar', icon: Share2, label: 'Compartilhar' },
+    ...(userProfile?.tipo === 'master' ? [{ path: '/lojas', icon: Store, label: 'Lojas' }] : []),
     ...(userProfile?.tipo === 'master' ? [{ path: '/config', icon: Settings, label: 'Config Master' }] : []),
   ];
 

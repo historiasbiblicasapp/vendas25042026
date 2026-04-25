@@ -9,6 +9,7 @@ import Produtos from './pages/Produtos';
 import Relatorios from './pages/Relatorios';
 import Compartilhar from './pages/Compartilhar';
 import ConfigMaster from './pages/ConfigMaster';
+import GerenciarLojas from './pages/GerenciarLojas';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/produtos" element={<PrivateRoute><Produtos /></PrivateRoute>} />
           <Route path="/relatorios" element={<PrivateRoute><Relatorios /></PrivateRoute>} />
           <Route path="/compartilhar" element={<PrivateRoute><Compartilhar /></PrivateRoute>} />
+          <Route path="/lojas" element={<PrivateRoute><GerenciarLojas /></PrivateRoute>} />
           <Route path="/config" element={<PrivateRoute><ConfigMaster /></PrivateRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
