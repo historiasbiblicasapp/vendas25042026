@@ -41,11 +41,7 @@ export default function Login() {
         maxWidth: '400px'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <img 
-            src="/logo.png" 
-            alt="LF Vendas" 
-            style={{ width: '120px', height: 'auto' }}
-          />
+          <span style={{ fontSize: '48px' }}>👕</span>
         </div>
         <h1 style={{ textAlign: 'center', color: '#22c55e', marginBottom: '1.5rem', fontSize: '1.5rem' }}>
           LF Vendas
