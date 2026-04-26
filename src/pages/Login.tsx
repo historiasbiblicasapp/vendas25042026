@@ -1,7 +1,55 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Download } from 'lucide-react';
+
+function InstalarBtn() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(display-mode: standalone)').matches) return;
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShow(true);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    setTimeout(() => setShow(true), 3000);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  if (!show || !deferredPrompt) return null;
+
+  return (
+    <button
+      onClick={async () => {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        setShow(false);
+      }}
+      style={{
+        position: 'fixed',
+        bottom: '1rem',
+        right: '1rem',
+        background: '#22c55e',
+        color: 'white',
+        border: 'none',
+        padding: '0.75rem 1rem',
+        borderRadius: '50px',
+        fontSize: '0.875rem',
+        fontWeight: 600,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+      }}
+    >
+      <Download size={18} /> Instalar App
+    </button>
+  );
+}
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -120,6 +168,7 @@ export default function Login() {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
+        <InstalarBtn />
       </div>
     </div>
   );
