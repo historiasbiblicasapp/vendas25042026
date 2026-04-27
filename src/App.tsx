@@ -10,6 +10,7 @@ import Relatorios from './pages/Relatorios';
 import Compartilhar from './pages/Compartilhar';
 import ConfigMaster from './pages/ConfigMaster';
 import GerenciarLojas from './pages/GerenciarLojas';
+import Dispositivos from './pages/Dispositivos';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/compartilhar" element={<PrivateRoute><Compartilhar /></PrivateRoute>} />
           <Route path="/lojas" element={<PrivateRoute><GerenciarLojas /></PrivateRoute>} />
           <Route path="/config" element={<PrivateRoute><ConfigMaster /></PrivateRoute>} />
+          <Route path="/dispositivos" element={<PrivateRoute><Dispositivos userId={useAuth().user?.id || ''} /></PrivateRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

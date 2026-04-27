@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDashboard } from '../hooks/useDashboard';
+import { useDeviceTracking } from '../hooks/useDeviceTracking';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, ShoppingCart, Users, Package, 
@@ -12,10 +13,14 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { userProfile, signOut } = useAuth();
+  const { userProfile, signOut, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { vendasHoje, receitaHoje, vendasMes, receitaMes, totalClientes, totalProdutos } = useDashboard();
+  
+  // Tracking de dispositivo
+  useDeviceTracking(user?.id || null);
+  
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
@@ -24,6 +29,7 @@ export default function Layout({ children }: LayoutProps) {
     { path: '/clientes', icon: Users, label: 'Clientes' },
     { path: '/produtos', icon: Package, label: 'Produtos/Serviços' },
     { path: '/relatorios', icon: FileText, label: 'Relatórios' },
+    { path: '/dispositivos', icon: Store, label: 'Dispositivos' },
     { path: '/compartilhar', icon: Share2, label: 'Compartilhar' },
     ...(userProfile?.tipo === 'master' ? [{ path: '/lojas', icon: Store, label: 'Lojas' }] : []),
     ...(userProfile?.tipo === 'master' ? [{ path: '/config', icon: Settings, label: 'Config Master' }] : []),

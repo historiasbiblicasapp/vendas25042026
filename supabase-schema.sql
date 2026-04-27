@@ -46,3 +46,22 @@ CREATE TABLE IF NOT EXISTS public.vendas (
   itens JSONB NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Tabela de dispositivos conectados (para controle de acesso)
+CREATE TABLE IF NOT EXISTS public.vendas_dispositivos (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL,
+  device_id TEXT NOT NULL,
+  device_name TEXT,
+  ip_address TEXT,
+  ultima_atividade TIMESTAMPTZ DEFAULT NOW(),
+  ativo BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Desabilitar RLS
+ALTER TABLE public.usuarios DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.clientes DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.produtos DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.vendas DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.vendas_dispositivos DISABLE ROW LEVEL SECURITY;
